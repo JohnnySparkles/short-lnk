@@ -11,6 +11,9 @@ import './main.html';
 
 
 Meteor.startup(() => {
+  Meteor.call('greetUser', (err, res) => {
+    console.log('Greet User Arguments', err, res);
+  });
   ReactDOM.render(<AppRouter/>, document.getElementById('app'));
 });
 
