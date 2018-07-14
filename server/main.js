@@ -4,7 +4,4 @@ import '../imports/api/links';
 
 
 Meteor.startup(() => {
-  Meteor.call('greetUser', (err, res) => {
-    console.log('Greet User Arguments', err, res);
-  });
 });
