@@ -11,6 +11,7 @@ import './main.html';
 
 
 Meteor.startup(() => {
+  Meteor.call('links.insert', 'blah');
   ReactDOM.render(<AppRouter/>, document.getElementById('app'));
 });
 

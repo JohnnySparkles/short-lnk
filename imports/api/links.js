@@ -11,4 +11,15 @@ if (Meteor.isServer) {
   });
 }
 
+Meteor.methods({
+  'links.insert': function(url) {
 
+    console.log('links.insert');
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    return Links.insert({url, userId: this.userId});
+  }
+});
