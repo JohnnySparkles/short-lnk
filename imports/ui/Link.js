@@ -5,6 +5,12 @@ import { Meteor } from 'meteor/meteor';
 
 
 export default class Link extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {insertErr: undefined};
+  }
+
   onLogout() {
     Accounts.logout();
   }
@@ -14,7 +20,9 @@ export default class Link extends React.Component {
     e.preventDefault();
 
     if (url) {
-      Meteor.call('links.insert', url);
+      Meteor.call('links.insert', url, (err, res) => {
+        this.setState({insertErr: err});
+      });
       this.refs.url.value = '';
     }
   }
@@ -28,6 +36,7 @@ export default class Link extends React.Component {
         <p>Add Link</p>
         <form onSubmit={this.onSubmit.bind(this)}>
           <input type={"text"} ref={"url"} placeholder={"URL"}/>
+          {this.state.insertErr ? <p>{this.state.insertErr.reason}</p> : undefined}
           <button>Add Link</button>
         </form>
       </div>
