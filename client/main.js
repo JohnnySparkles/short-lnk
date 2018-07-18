@@ -7,11 +7,10 @@ import { Tracker } from 'meteor/tracker';
 // Application Imports
 import { AppRouter } from './../imports/routes/AppRouter';
 import './main.html';
-
+import '../imports/startup/simple-schema-configuration';
 
 
 Meteor.startup(() => {
-  Meteor.call('links.insert', 'blah');
   ReactDOM.render(<AppRouter/>, document.getElementById('app'));
 });
 
