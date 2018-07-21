@@ -4,7 +4,6 @@ import { Links } from './../imports/api/links';
 
 
 Meteor.startup(() => {
-
   WebApp.connectHandlers.use((req, res, next) => {
     console.log('This is my other custom middleware');
     const _id = req.url.slice(1);

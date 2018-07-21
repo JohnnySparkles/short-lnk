@@ -8,16 +8,16 @@
     "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.51",
+    "@babel/runtime": "^7.0.0-beta.54",
     "autopublish": "0.0.8",
-    "babel-runtime": "^6.18.0",
+    "babel-runtime": "^6.26.0",
     "history": "^4.7.2",
     "meteor-node-stubs": "^0.4.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-meteor-data": "^0.2.11",
     "react-router-dom": "^4.3.1",
-    "shortid": "^2.2.12",
+    "shortid-2": "^2.2.8",
     "simpl-schema": "^1.5.0"
   },
   "meteor": {
