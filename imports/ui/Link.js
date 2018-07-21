@@ -1,6 +1,4 @@
 import React from 'react';
-import { Accounts } from 'meteor/accounts-base';
-import { Meteor } from 'meteor/meteor';
 import LinksList from './../ui/LinksList';
 import PrivateHeader from './../ui/PrivateHeader';
 import AddLink from './../ui/AddLink';
