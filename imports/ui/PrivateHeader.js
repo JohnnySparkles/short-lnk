@@ -4,24 +4,18 @@ import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 
 
-export default class PrivateHeader extends React.Component {
-  onLogout() {
-    Accounts.logout();
-  }
-
-  render() {
-    return (
+const PrivateHeader = (props) => {
+  return (
       <div>
-        <h1>{this.props.title}</h1>
-        <button onClick={this.onLogout.bind(this)}>Logout</button>
+        <h1>{props.title}</h1>
+        <button onClick={() => {Accounts.logout()}}>Logout</button>
       </div>
-    )
-  }
+  )
 }
 
 PrivateHeader.propTypes = {
   title: PropTypes.string.isRequired
 };
 
-
+export default PrivateHeader;
 
