@@ -4,16 +4,14 @@ import PrivateHeader from './../ui/PrivateHeader';
 import AddLink from './../ui/AddLink';
 
 
-export default class Link extends React.Component {
-  render () {
-    return (
-      <div>
-        <PrivateHeader title={"Your links"}/>
-        <LinksList />
-        <AddLink />
-      </div>
-    );
-  }
+export default Link = () => {
+  return (
+    <div>
+      <PrivateHeader title={"Your links"}/>
+      <LinksList />
+      <AddLink />
+    </div>
+  );
 }
 
 

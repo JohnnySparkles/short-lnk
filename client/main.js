@@ -11,7 +11,7 @@ import '../imports/startup/simple-schema-configuration';
 
 
 Meteor.startup(() => {
-  ReactDOM.render(<AppRouter/>, document.getElementById('app'));
+  ReactDOM.render(<AppRouter />, document.getElementById('app'));
 });
 
 
