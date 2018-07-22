@@ -6,10 +6,10 @@ import { Meteor } from 'meteor/meteor';
 
 const PrivateHeader = (props) => {
   return (
-      <div>
-        <h1>{props.title}</h1>
-        <button onClick={() => {Accounts.logout()}}>Logout</button>
-      </div>
+    <div>
+      <h1>{props.title}</h1>
+      <button onClick={() => {Accounts.logout()}}>Logout</button>
+    </div>
   )
 }
 

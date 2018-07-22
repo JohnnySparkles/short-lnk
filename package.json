@@ -11,6 +11,7 @@
     "@babel/runtime": "^7.0.0-beta.54",
     "autopublish": "0.0.8",
     "babel-runtime": "^6.26.0",
+    "clipboard": "^1.5.16",
     "history": "^4.7.2",
     "meteor-node-stubs": "^0.4.1",
     "prop-types": "^15.6.2",

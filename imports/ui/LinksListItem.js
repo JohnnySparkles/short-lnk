@@ -1,12 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Clipboard from 'clipboard';
+
 
 export default class LinksListItem extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {copied: false};
+  }
+
+  componentDidMount() {
+    this.clipboard = new Clipboard(this.copy);
+
+    this.clipboard.on("success", () => {
+      this.setState({copied: true});
+      setTimeout(() => this.setState({copied: false}), 1000);
+    }).on("error", () => {
+      alert("Failed to copy the text");
+    });
+  }
+
+  componentWillUnmount() {
+    this.clipboard.destroy();
+  }
+
   render() {
+    let copyText = this.state.copied ? "Copied" : "Copy";
+
     return (
         <div>
           <p>{this.props.url}</p>
-          <p>{this.props.shortUrl}</p>
+          <p >{this.props.shortUrl}</p>
+          <button ref={(input) => {this.copy = input}} data-clipboard-text={this.props.shortUrl}>{copyText}</button>
         </div>
     );
   }
