@@ -31,7 +31,35 @@ Meteor.methods({
     return Links.insert({
       _id: id,
       url: url,
-      userId: this.userId});
+      userId: this.userId,
+      visible: true});
+  },
+  'links.setVisibility'(id, visible) {
+
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    const link = Links.findOne({_id: id});
+    if (!link) {
+      throw new Meteor.Error('not-found');
+    }
+
+    if (link.userId !== this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    new SimpleSchema({
+      id: {
+        type: String,
+        min: 1,
+      },
+      visible: {
+        type: Boolean,
+      }
+    }).validate({id, visible});
+
+    return Links.update({_id: id, userId: this.userId}, {visible: visible});
   }
 });
 
