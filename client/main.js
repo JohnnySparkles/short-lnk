@@ -11,14 +11,9 @@ import './main.html';
 import '../imports/startup/simple-schema-configuration';
 
 
-Tracker.autorun(() => {
-  const name = Session.get('name');
-  console.log('Name: ', name);
-});
-
-Session.set('name', 'Andrew Mead');
-
 Meteor.startup(() => {
+  Session.set('showVisible', true);
+
   ReactDOM.render(<AppRouter />, document.getElementById('app'));
 });
 

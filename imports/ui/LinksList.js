@@ -4,6 +4,8 @@ import { Tracker } from 'meteor/tracker';
 import { Links } from './../api/links';
 import { withTracker } from 'meteor/react-meteor-data';
 import LinksListItem from './LinksListItem';
+import { Session } from 'meteor/session';
+
 
 class LinksListImpl extends React.Component {
   renderLinksListItems() {
@@ -25,7 +27,11 @@ class LinksListImpl extends React.Component {
 
 export default LinksList = withTracker(({}) => {
   const linksHandle = Meteor.subscribe('links');
-  const links = Links.find({}).fetch();
+  const visible = Session.get('showVisible');
+  const links = Links.find({
+    visible: visible
+  }).fetch();
+
 
   return {links: links, linksHandle};
 })(LinksListImpl);

@@ -13,13 +13,13 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-  'links.insert': function(url) {
+  'links.insert': function (url) {
 
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    new SimpleSchema ({
+    new SimpleSchema({
       url: {
         type: String,
         regEx: SimpleSchema.RegEx.Url,
@@ -32,7 +32,8 @@ Meteor.methods({
       _id: id,
       url: url,
       userId: this.userId,
-      visible: true});
+      visible: true
+    });
   },
   'links.setVisibility'(id, visible) {
 
@@ -59,8 +60,8 @@ Meteor.methods({
       }
     }).validate({id, visible});
 
-    return Links.update({_id: id, userId: this.userId}, {visible: visible});
-  }
+    return Links.update({_id: id, userId: this.userId}, {$set: {visible: visible}});
+  },
 });
 
 
