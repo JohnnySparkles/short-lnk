@@ -28,10 +28,13 @@ class LinksListImpl extends React.Component {
 export default LinksList = withTracker(({}) => {
   const linksHandle = Meteor.subscribe('links');
   const visible = Session.get('showVisible');
-  const links = Links.find({
-    visible: visible
-  }).fetch();
 
+  let filter = {};
+  if (visible) {
+    filter = {visible: visible};
+  }
+
+  const links = Links.find(filter).fetch();
 
   return {links: links, linksHandle};
 })(LinksListImpl);

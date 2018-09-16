@@ -12,18 +12,18 @@ class ToggleVisible extends React.Component {
   }
 
   toggleVisible() {
-    this.setState({visible: !this.state.visible});
-    Session.set("showVisible", this.state.visible);
+    const visible = !this.state.visible;
+    this.setState({visible: visible});
+    Session.set("showVisible", visible);
   }
 
   render() {
-    let btnText = "Visible";
-
-    if (this.state.visible) {
-      btnText = "Hidden";
-    }
-
-    return (<button onClick={this.toggleVisible.bind(this)}>Show {btnText}</button>);
+    return (
+        <div>
+          <label for="id_visible">Show Hidden</label>
+          <input id="id_visible" type="checkbox" checked={!this.state.visible} onClick={this.toggleVisible.bind(this)}/>
+        </div>
+    );
   }
 }
 
