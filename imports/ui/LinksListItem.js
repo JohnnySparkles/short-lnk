@@ -29,7 +29,14 @@ export default class LinksListItem extends React.Component {
   }
 
   renderStats() {
-    return <p>{this.props.visitedCount} visits - {this.props.lastVisited ? moment(this.props.lastVisited).fromNow() : 'Not Visited'}</p>;
+    const visitMessage = this.props.visitedCount === 1 ? 'visit' : 'visits';
+    let visitedMessage = null;
+
+    if (typeof this.props.lastVisited === 'number') {
+      visitedMessage = `(visited ${moment(this.props.lastVisited).fromNow()})`;;
+    }
+
+    return <p>{this.props.visitedCount} {visitMessage} {visitedMessage}</p>;
   }
 
   render() {
@@ -56,5 +63,5 @@ LinksListItem.propTypes = {
   visible: PropTypes.bool.isRequired,
   shortUrl: PropTypes.string.isRequired,
   visitedCount: PropTypes.number.isRequired,
-  lastVisitedAt: PropTypes.number,
+  lastVisited: PropTypes.number,
 };
