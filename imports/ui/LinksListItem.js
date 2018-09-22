@@ -2,6 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import Clipboard from 'clipboard';
+import moment from 'moment';
 
 
 export default class LinksListItem extends React.Component {
@@ -34,7 +35,7 @@ export default class LinksListItem extends React.Component {
       <div>
         <p>{this.props.url}</p>
         <p>{this.props.shortUrl}</p>
-        <p>{this.props.visitedCount} - {this.props.lastVisited}</p>
+        <p>{this.props.visitedCount} visits - {this.props.lastVisited ? moment(this.props.lastVisited).fromNow() : 'Not Visited'}</p>
         <button ref={(input) => {this.copy = input}} data-clipboard-text={this.props.shortUrl}>{copyText}</button>
         <button onClick={() => {Meteor.call('links.setVisibility',
                                             this.props._id, !this.props.visible)}}>
