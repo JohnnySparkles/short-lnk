@@ -9,7 +9,7 @@ export default class AddLink extends React.Component {
 
     this.state = {
       insertErr: undefined,
-      url: 'John was here',
+      url: '',
     };
   }
 
@@ -18,14 +18,16 @@ export default class AddLink extends React.Component {
   }
 
   onSubmit(e) {
-    const url = this.refs.url.value.trim();
+    const { url } = this.state;
     e.preventDefault();
 
     if (url) {
       Meteor.call('links.insert', url, (err, res) => {
         this.setState({insertErr: err});
+        if (!err) {
+          this.setState({url: ''});
+        }
       });
-      this.refs.url.value = '';
     }
   }
 
