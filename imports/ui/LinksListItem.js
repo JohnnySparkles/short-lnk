@@ -28,6 +28,10 @@ export default class LinksListItem extends React.Component {
     this.clipboard.destroy();
   }
 
+  renderStats() {
+    return <p>{this.props.visitedCount} visits - {this.props.lastVisited ? moment(this.props.lastVisited).fromNow() : 'Not Visited'}</p>;
+  }
+
   render() {
     let copyText = this.state.copied ? "Copied" : "Copy";
 
@@ -35,7 +39,7 @@ export default class LinksListItem extends React.Component {
       <div>
         <p>{this.props.url}</p>
         <p>{this.props.shortUrl}</p>
-        <p>{this.props.visitedCount} visits - {this.props.lastVisited ? moment(this.props.lastVisited).fromNow() : 'Not Visited'}</p>
+        {this.renderStats()}
         <button ref={(input) => {this.copy = input}} data-clipboard-text={this.props.shortUrl}>{copyText}</button>
         <button onClick={() => {Meteor.call('links.setVisibility',
                                             this.props._id, !this.props.visible)}}>
