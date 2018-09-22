@@ -9,7 +9,7 @@ import LinksListFilters from './../ui/LinksListFilters';
 export default Link = () => {
   return (
     <div>
-      <PrivateHeader title={"Your links"}/>
+      <PrivateHeader title="Your links"/>
       <LinksListFilters />
       <LinksList />
       <AddLink />

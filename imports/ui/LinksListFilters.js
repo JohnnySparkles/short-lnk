@@ -6,7 +6,7 @@ export default () => {
         <div>
           <label>
             <input id="id_visible" type="checkbox" onChange={(e) => {
-               Session.set('showVisible', !e.target.checked);
+              Session.set("showVisible", !e.target.checked);
             }}/>
             Show Hidden
           </label>
