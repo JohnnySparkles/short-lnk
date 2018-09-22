@@ -12,12 +12,32 @@ if (Meteor.isServer) {
   });
 }
 
+function checkLoggedIn(userId) {
+  if (!userId) {
+    throw new Meteor.Error('not-authorized');
+  }
+}
+
+function checkEditAuthorized(id, userId) {
+
+  checkLoggedIn(userId);
+
+  const link = Links.findOne({_id: id});
+  if (!link) {
+    throw new Meteor.Error('not-found');
+  }
+
+  if (link.userId !== userId) {
+    throw new Meteor.Error('not-authorized');
+  }
+
+  return link;
+}
+
 Meteor.methods({
   'links.insert': function (url) {
 
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
-    }
+    checkedLoggedIn(this.userId);
 
     new SimpleSchema({
       url: {
@@ -32,23 +52,14 @@ Meteor.methods({
       _id: id,
       url: url,
       userId: this.userId,
-      visible: true
+      visible: true,
+      visitedCount: 0,
+      lastVisitedAt: null,
     });
   },
   'links.setVisibility'(id, visible) {
 
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
-    }
-
-    const link = Links.findOne({_id: id});
-    if (!link) {
-      throw new Meteor.Error('not-found');
-    }
-
-    if (link.userId !== this.userId) {
-      throw new Meteor.Error('not-authorized');
-    }
+    checkEditAuthorized(userId, id);
 
     new SimpleSchema({
       id: {
@@ -62,6 +73,13 @@ Meteor.methods({
 
     return Links.update({_id: id, userId: this.userId}, {$set: {visible: visible}});
   },
+  'links.incrementVisited'(id) {
+    const link = checkEditAuthorized(userId, id);
+    const visited = link.visited++;
+    const lastVisited = new Date();
+
+    return Links.update({_id: id, userId: this.userId}, {$set: {visitedCount: visited, lastVisited: lastVisited}});
+  }
 });
 
 
