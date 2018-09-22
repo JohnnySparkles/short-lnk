@@ -43,7 +43,7 @@ function checkEditAuthorized(id, userId) {
 Meteor.methods({
   'links.insert': function (url) {
 
-    checkedLoggedIn(this.userId);
+    checkLoggedIn(this.userId);
 
     new SimpleSchema({
       url: {
