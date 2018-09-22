@@ -18,14 +18,20 @@ function checkLoggedIn(userId) {
   }
 }
 
-function checkEditAuthorized(id, userId) {
-
-  checkLoggedIn(userId);
-
+function checkExists(_id) {
   const link = Links.findOne({_id: id});
   if (!link) {
     throw new Meteor.Error('not-found');
   }
+
+  return link;
+}
+
+function checkEditAuthorized(id, userId) {
+
+  checkLoggedIn(userId);
+
+  const link = checkExists(id);
 
   if (link.userId !== userId) {
     throw new Meteor.Error('not-authorized');
@@ -59,7 +65,7 @@ Meteor.methods({
   },
   'links.setVisibility'(id, visible) {
 
-    checkEditAuthorized(userId, id);
+    checkEditAuthorized(id, this.userId);
 
     new SimpleSchema({
       id: {
@@ -73,12 +79,23 @@ Meteor.methods({
 
     return Links.update({_id: id, userId: this.userId}, {$set: {visible: visible}});
   },
-  'links.incrementVisited'(id) {
-    const link = checkEditAuthorized(userId, id);
-    const visited = link.visited++;
-    const lastVisited = new Date();
+  'links.trackVisit'(_id) {
+    new SimpleSchema({
+      _id: {
+        type: String,
+        min: 1,
+      },
+    }).validate({_id});
 
-    return Links.update({_id: id, userId: this.userId}, {$set: {visitedCount: visited, lastVisited: lastVisited}});
+    return Links.update({_id: _id}, {
+        $set: {
+          lastVisited: new Date().getTime()
+        },
+        $inc: {
+          visitedCount: 1,
+        }
+      }
+    );
   }
 });
 

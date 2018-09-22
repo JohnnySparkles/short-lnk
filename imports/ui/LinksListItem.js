@@ -34,6 +34,7 @@ export default class LinksListItem extends React.Component {
       <div>
         <p>{this.props.url}</p>
         <p>{this.props.shortUrl}</p>
+        <p>{this.props.visitedCount} - {this.props.lastVisited}</p>
         <button ref={(input) => {this.copy = input}} data-clipboard-text={this.props.shortUrl}>{copyText}</button>
         <button onClick={() => {Meteor.call('links.setVisibility',
                                             this.props._id, !this.props.visible)}}>
@@ -49,4 +50,6 @@ LinksListItem.propTypes = {
   userId: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
   shortUrl: PropTypes.string.isRequired,
+  visitedCount: PropTypes.number.isRequired,
+  lastVisitedAt: PropTypes.number,
 };
