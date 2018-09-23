@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { Links } from './../imports/api/links';
 
+import '../imports/startup/simple-schema-configuration';
 
 Meteor.startup(() => {
   WebApp.connectHandlers.use((req, res, next) => {
