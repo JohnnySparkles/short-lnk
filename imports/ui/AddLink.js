@@ -34,20 +34,31 @@ export default class AddLink extends React.Component {
     });
   }
 
+  handleModalClose() {
+    this.setState({isOpen: false, url: '', error: ''});
+  }
+
   render () {
     return (
       <div>
         <button onClick={() => {this.setState({isOpen: true})}}>+ Add Link</button>
-        <Modal isOpen={this.state.isOpen} contentLabel="Add link">
+        <Modal isOpen={this.state.isOpen}
+               contentLabel="Add link"
+               onAfterOpen={() => {
+                 this.refs.url.focus();
+               }}
+               onRequestClose={this.handleModalClose.bind(this)}>
           <h1>Add Link</h1>
           {this.state.error ? <p>{this.state.error}</p> : ''}
           <form onSubmit={this.onSubmit.bind(this)}>
-            <input type={"text"} ref={"url"} placeholder={"URL"} onChange={this.onChange.bind(this)} value={this.state.url}/>
+            <input type="text"
+                   ref="url"
+                   placeholder="URL"
+                   onChange={this.onChange.bind(this)}
+                   value={this.state.url}/>
             <button>Add Link</button>
           </form>
-          <button onClick={() => {
-            this.setState({isOpen: false, url: '', error: ''});
-          }}>Cancel</button>
+          <button onClick={this.handleModalClose.bind(this)}>Cancel</button>
         </Modal>
       </div>
     );
