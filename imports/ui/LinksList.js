@@ -5,6 +5,7 @@ import { Links } from './../api/links';
 import { withTracker } from 'meteor/react-meteor-data';
 import LinksListItem from './LinksListItem';
 import { Session } from 'meteor/session';
+import FlipMove from 'react-flip-move';
 
 
 class LinksListImpl extends React.Component {
@@ -17,15 +18,17 @@ class LinksListImpl extends React.Component {
     }
 
     return this.props.links.map((link) => {
-      const shortUrl = Meteor.absoluteUrl(link._id);
-      return <LinksListItem key={link._id} {...link} shortUrl={shortUrl} />
-    });
+          const shortUrl = Meteor.absoluteUrl(link._id);
+            return <LinksListItem key={link._id} {...link} shortUrl={shortUrl}/>
+          });
   }
 
   render() {
     return (
         <div>
-          {this.renderLinksListItems()}
+          <FlipMove maintainContainerHeight={true}>
+            {this.renderLinksListItems()}
+          </FlipMove>
         </div>
     );
   }
