@@ -47,9 +47,9 @@ export default class LinksListItem extends React.Component {
         <p>{this.props.url}</p>
         <p>{this.props.shortUrl}</p>
         {this.renderStats()}
-        <a href={this.props.shortUrl} target="_blank">Visit</a>
-        <button ref={(input) => {this.copy = input}} data-clipboard-text={this.props.shortUrl}>{copyText}</button>
-        <button onClick={() => {Meteor.call('links.setVisibility',
+        <a className="button button--pill button--link" href={this.props.shortUrl} target="_blank">Visit</a>
+        <button className="button button--pill" ref={(input) => {this.copy = input}} data-clipboard-text={this.props.shortUrl}>{copyText}</button>
+        <button className="button button--pill" onClick={() => {Meteor.call('links.setVisibility',
                                             this.props._id, !this.props.visible)}}>
           {this.props.visible ? 'Hide' : 'Unhide'}</button>
       </div>
