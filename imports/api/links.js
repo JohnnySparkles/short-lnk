@@ -19,7 +19,7 @@ function checkLoggedIn(userId) {
 }
 
 function checkExists(_id) {
-  const link = Links.findOne({_id: id});
+  const link = Links.findOne({_id: _id});
   if (!link) {
     throw new Meteor.Error('not-found');
   }
@@ -63,21 +63,21 @@ Meteor.methods({
       lastVisitedAt: null,
     });
   },
-  'links.setVisibility'(id, visible) {
+  'links.setVisibility'(_id, visible) {
 
-    checkEditAuthorized(id, this.userId);
+    checkEditAuthorized(_id, this.userId);
 
     new SimpleSchema({
-      id: {
+      _id: {
         type: String,
         min: 1,
       },
       visible: {
         type: Boolean,
       }
-    }).validate({id, visible});
+    }).validate({_id, visible});
 
-    return Links.update({_id: id, userId: this.userId}, {$set: {visible: visible}});
+    return Links.update({_id: _id, userId: this.userId}, {$set: {visible: visible}});
   },
   'links.trackVisit'(_id) {
     new SimpleSchema({
