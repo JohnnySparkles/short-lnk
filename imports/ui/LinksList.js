@@ -9,6 +9,13 @@ import { Session } from 'meteor/session';
 
 class LinksListImpl extends React.Component {
   renderLinksListItems() {
+    if (this.props.links.length === 0) {
+      return (
+          <div className="item">
+            <p className="item__status-message">No links found</p>
+          </div>);
+    }
+
     return this.props.links.map((link) => {
       const shortUrl = Meteor.absoluteUrl(link._id);
       return <LinksListItem key={link._id} {...link} shortUrl={shortUrl} />
@@ -18,7 +25,6 @@ class LinksListImpl extends React.Component {
   render() {
     return (
         <div>
-          <p>Links List</p>
           {this.renderLinksListItems()}
         </div>
     );

@@ -36,16 +36,16 @@ export default class LinksListItem extends React.Component {
       visitedMessage = `(visited ${moment(this.props.lastVisited).fromNow()})`;;
     }
 
-    return <p>{this.props.visitedCount} {visitMessage} {visitedMessage}</p>;
+    return <p className="item__messsage">{this.props.visitedCount} {visitMessage} {visitedMessage}</p>;
   }
 
   render() {
     let copyText = this.state.copied ? "Copied" : "Copy";
 
     return (
-      <div>
-        <p>{this.props.url}</p>
-        <p>{this.props.shortUrl}</p>
+      <div className="item">
+        <h2>{this.props.url}</h2>
+        <p className="item__message">{this.props.shortUrl}</p>
         {this.renderStats()}
         <a className="button button--pill button--link" href={this.props.shortUrl} target="_blank">Visit</a>
         <button className="button button--pill" ref={(input) => {this.copy = input}} data-clipboard-text={this.props.shortUrl}>{copyText}</button>
